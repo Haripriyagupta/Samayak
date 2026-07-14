@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login – Samayak CampusMitra</title>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="auth.css"/>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">
+    <span class="logo-name">Samayak<span>🌿</span></span>
+    <span class="logo-sub">Your CampusMitra</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="features.html">Features</a></li>
+    <li><a href="faculty.html">Faculty</a></li>
+    <li><a href="student.html">Student</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <a href="login.html" class="btn-login">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+    </svg>
+    Login / Portal
+  </a>
+</nav>
+
+<div class="auth-wrap">
+
+  <!-- LEFT BRAND PANEL -->
+  <div class="auth-left">
+    <div class="auth-badge">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+      Smart Campus. Better Tomorrow.
+    </div>
+    <h1>Welcome to<br/><span>Samayak</span><br/>CampusMitra</h1>
+    <p class="tagline">Your complete academic companion — access attendance, marks, timetable, syllabus, and announcements in one secure place, built for the CSIT Department.</p>
+
+    <div class="auth-perks">
+      <div class="auth-perk">
+        <div class="perk-icon">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#cfe6da" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="M8 14l2.5 2.5L16 11"/></svg>
+        </div>
+        <span class="perk-text">Real-time attendance & marks tracking</span>
+      </div>
+      <div class="auth-perk">
+        <div class="perk-icon">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#cfe6da" stroke-width="1.8"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+        </div>
+        <span class="perk-text">Private, role-based secure access</span>
+      </div>
+      <div class="auth-perk">
+        <div class="perk-icon">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#cfe6da" stroke-width="1.8"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+        </div>
+        <span class="perk-text">Instant notices & timetable updates</span>
+      </div>
+      <div class="auth-perk">
+        <div class="perk-icon">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#cfe6da" stroke-width="1.8"><path d="M12 16V4M8 12l4-4 4 4"/><rect x="4" y="18" width="16" height="2" rx="1"/></svg>
+        </div>
+        <span class="perk-text">Faculty bulk-upload via Excel sheets</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT FORM PANEL -->
+  <div class="auth-right">
+    <div class="auth-box">
+
+      <h2 id="form-heading">Login to your account</h2>
+      <p class="auth-sub" id="form-subheading">Choose your role and enter your credentials.</p>
+
+      <!-- Alert banner -->
+      <div class="alert-banner" id="alert-banner">
+        <svg id="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"></svg>
+        <span id="alert-text"></span>
+      </div>
+
+      <!-- Role Tabs -->
+      <div class="role-tabs">
+        <button class="role-tab active" id="tab-student" onclick="switchRole('student')" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+          Student
+        </button>
+        <button class="role-tab" id="tab-faculty" onclick="switchRole('faculty')" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+          Faculty
+        </button>
+      </div>
+
+      <!-- ════════ LOGIN FORM ════════ -->
+      <form class="auth-form" id="login-form" onsubmit="return handleLogin(event)">
+
+        <!-- Student-only: identifier choice -->
+        <div id="student-identifier-toggle" class="identifier-toggle">
+          <label><input type="radio" name="idType" value="enrollment" checked onchange="updateIdentifierField()"/> Enrollment Number</label>
+          <label><input type="radio" name="idType" value="email" onchange="updateIdentifierField()"/> College Email</label>
+        </div>
+
+        <div class="field-group">
+          <label id="identifier-label">Enrollment Number</label>
+          <div class="input-wrap">
+            <input type="text" id="login-identifier" placeholder="e.g. 241CS001" autocomplete="username" required/>
+          </div>
+          <div class="field-msg error" id="identifier-error">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+            <span></span>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label>Password</label>
+          <div class="input-wrap password">
+            <input type="password" id="login-password" placeholder="Enter your password" autocomplete="current-password" required/>
+            <button type="button" class="pw-toggle" onclick="togglePassword('login-password', this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+          </div>
+          <div class="field-msg error" id="password-error">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+            <span></span>
+          </div>
+        </div>
+
+        <div class="form-row-between">
+          <label class="remember-me">
+            <input type="checkbox" id="remember-me"/> Remember me
+          </label>
+          <a href="#" class="forgot-link" onclick="openForgotPassword(); return false;">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="auth-submit" id="login-btn">
+          <span class="spinner"></span>
+          <span class="btn-text">Login →</span>
+        </button>
+
+      </form>
+
+      <div class="auth-divider">New to Samayak?</div>
+      <div class="signup-cta">
+        Don't have an account? <a href="#" onclick="switchToSignup(); return false;">Create one here</a>
+      </div>
+
+      <!-- ════════ SIGNUP FORM (hidden by default) ════════ -->
+      <form class="auth-form" id="signup-form" style="display:none;" onsubmit="return handleSignup(event)">
+
+        <div class="field-group">
+          <label>Full Name</label>
+          <div class="input-wrap">
+            <input type="text" id="signup-name" placeholder="Your full name" required/>
+          </div>
+        </div>
+
+        <!-- Student fields -->
+        <div id="signup-student-fields">
+          <div class="field-row" style="gap:12px; margin-bottom:16px;">
+            <div class="field-group" style="flex:1;">
+              <label>Enrollment Number</label>
+              <div class="input-wrap">
+                <input type="text" id="signup-enrollment" placeholder="241CS001"/>
+              </div>
+            </div>
+            <div class="field-group" style="flex:1;">
+              <label>Semester</label>
+              <div class="input-wrap">
+                <select id="signup-semester">
+                  <option value="">Select</option>
+                  <option>1</option><option>2</option><option>3</option><option>4</option>
+                  <option>5</option><option>6</option><option>7</option><option>8</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="field-group">
+            <label>Branch</label>
+            <div class="input-wrap">
+              <select id="signup-branch">
+                <option value="CSIT" selected>CSIT</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Faculty fields -->
+        <div id="signup-faculty-fields" style="display:none;">
+          <div class="field-row" style="gap:12px; margin-bottom:16px;">
+            <div class="field-group" style="flex:1;">
+              <label>Department</label>
+              <div class="input-wrap">
+                <select id="signup-department">
+                  <option value="CSIT" selected>CSIT</option>
+                </select>
+              </div>
+            </div>
+            <div class="field-group" style="flex:1;">
+              <label>Designation</label>
+              <div class="input-wrap">
+                <select id="signup-designation">
+                  <option value="">Select</option>
+                  <option>Assistant Professor</option>
+                  <option>Associate Professor</option>
+                  <option>Professor</option>
+                  <option>HOD</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="field-group">
+            <label>Faculty Verification Code</label>
+            <div class="input-wrap">
+              <input type="text" id="signup-verification-code" placeholder="e.g. CSIT-FAC-2026"/>
+            </div>
+            <div class="field-msg" style="display:flex; color:var(--text-muted);">
+              <span>Issued by the department admin. Not have one? Contact the office.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="field-group" style="margin-top:16px;">
+          <label>College Email</label>
+          <div class="input-wrap">
+            <input type="email" id="signup-email" placeholder="you@college.edu" required/>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label>Password</label>
+          <div class="input-wrap password">
+            <input type="password" id="signup-password" placeholder="At least 6 characters" required minlength="6"/>
+            <button type="button" class="pw-toggle" onclick="togglePassword('signup-password', this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" class="auth-submit" id="signup-btn">
+          <span class="spinner"></span>
+          <span class="btn-text">Send OTP & Create Account →</span>
+        </button>
+      </form>
+
+      <div class="signup-cta" id="back-to-login-cta" style="display:none; margin-top:16px;">
+        Already have an account? <a href="#" onclick="switchToLogin(); return false;">Login here</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ════════ OTP MODAL ════════ -->
+<div class="modal-overlay" id="otp-modal-overlay">
+  <div class="otp-modal" style="position:relative;">
+    <button class="otp-close" onclick="closeOtpModal()">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="otp-icon">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#3a8c5c" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+    </div>
+    <h3>Verify Your Email</h3>
+    <p>We've sent a 6-digit code to <strong id="otp-target-email">your email</strong>. Enter it below to verify your account.</p>
+
+    <div class="otp-inputs">
+      <input type="text" maxlength="1" inputmode="numeric" class="otp-digit"/>
+      <input type="text" maxlength="1" inputmode="numeric" class="otp-digit"/>
+      <input type="text" maxlength="1" inputmode="numeric" class="otp-digit"/>
+      <input type="text" maxlength="1" inputmode="numeric" class="otp-digit"/>
+      <input type="text" maxlength="1" inputmode="numeric" class="otp-digit"/>
+      <input type="text" maxlength="1" inputmode="numeric" class="otp-digit"/>
+    </div>
+
+    <div class="alert-banner error" id="otp-error" style="text-align:left;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+      <span id="otp-error-text"></span>
+    </div>
+
+    <button class="auth-submit" id="otp-verify-btn" onclick="verifyOTP()">
+      <span class="spinner"></span>
+      <span class="btn-text">Verify & Continue →</span>
+    </button>
+
+    <div class="otp-resend">
+      Didn't receive the code? <button id="resend-btn" onclick="resendOTP()">Resend OTP</button>
+      <span id="resend-timer"></span>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ FORGOT PASSWORD MODAL ════════ -->
+<div class="modal-overlay" id="forgot-modal-overlay">
+  <div class="otp-modal" style="position:relative;">
+    <button class="otp-close" onclick="closeForgotModal()">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+
+    <!-- Step 1: enter email -->
+    <div id="forgot-step-1">
+      <div class="otp-icon">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#3a8c5c" stroke-width="1.8"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+      </div>
+      <h3>Reset Password</h3>
+      <p>Enter your college email and we'll send you a reset code.</p>
+      <div class="field-group" style="text-align:left; margin-bottom:18px;">
+        <div class="input-wrap">
+          <input type="email" id="forgot-email" placeholder="you@college.edu"/>
+        </div>
+      </div>
+      <div class="alert-banner error" id="forgot-error" style="text-align:left;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+        <span id="forgot-error-text"></span>
+      </div>
+      <button class="auth-submit" id="forgot-send-btn" onclick="sendForgotOTP()">
+        <span class="spinner"></span>
+        <span class="btn-text">Send Reset Code →</span>
+      </button>
+    </div>
+
+    <!-- Step 2: OTP + new password -->
+    <div id="forgot-step-2" style="display:none;">
+      <div class="otp-icon">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#3a8c5c" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      </div>
+      <h3>Enter Code & New Password</h3>
+      <p>Check <strong id="forgot-target-email">your email</strong> for the 6-digit code.</p>
+      <div class="otp-inputs">
+        <input type="text" maxlength="1" inputmode="numeric" class="forgot-otp-digit"/>
+        <input type="text" maxlength="1" inputmode="numeric" class="forgot-otp-digit"/>
+        <input type="text" maxlength="1" inputmode="numeric" class="forgot-otp-digit"/>
+        <input type="text" maxlength="1" inputmode="numeric" class="forgot-otp-digit"/>
+        <input type="text" maxlength="1" inputmode="numeric" class="forgot-otp-digit"/>
+        <input type="text" maxlength="1" inputmode="numeric" class="forgot-otp-digit"/>
+      </div>
+      <div class="field-group" style="text-align:left; margin-bottom:14px;">
+        <label>New Password</label>
+        <div class="input-wrap password">
+          <input type="password" id="new-password" placeholder="At least 6 characters" minlength="6"/>
+          <button type="button" class="pw-toggle" onclick="togglePassword('new-password', this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="alert-banner error" id="reset-error" style="text-align:left;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+        <span id="reset-error-text"></span>
+      </div>
+      <button class="auth-submit" id="reset-btn" onclick="submitNewPassword()">
+        <span class="spinner"></span>
+        <span class="btn-text">Reset Password →</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script src="config.js"></script>
+<script src="auth.js"></script>
+</body>
+</html>

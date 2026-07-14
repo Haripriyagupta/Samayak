@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Faculty Dashboard – Samayak CampusMitra</title>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="dashboard.css"/>
+  <link rel="stylesheet" href="faculty-dashboard.css"/>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">
+    <span class="logo-name">Samayak<span>🌿</span></span>
+    <span class="logo-sub">Your CampusMitra</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:14px;">
+    <span id="nav-greeting" style="font-size:0.82rem;color:#a8c5b5;"></span>
+    <button class="btn-login" onclick="logout()" style="background:#c0392b;border-color:#c0392b;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+      Logout
+    </button>
+  </div>
+</nav>
+
+<div class="dash-wrap">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-profile">
+      <div class="sidebar-avatar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#a8c5b5" stroke-width="1.8">
+          <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/>
+        </svg>
+      </div>
+      <div class="sidebar-name" id="sb-name">Loading…</div>
+      <div class="sidebar-meta" id="sb-meta">—</div>
+    </div>
+    <ul class="sidebar-nav">
+      <li><a class="active" onclick="showSection('overview')" id="nav-overview">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        Overview
+      </a></li>
+      <li><a onclick="showSection('attendance')" id="nav-attendance">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M8 14l2.5 2.5L16 11"/></svg>
+        Upload Attendance
+      </a></li>
+      <li><a onclick="showSection('marks')" id="nav-marks">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20V8l8-4 8 4v12"/><rect x="9" y="12" width="6" height="8"/></svg>
+        Upload Marks
+      </a></li>
+      <li><a onclick="showSection('notices')" id="nav-notices">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+        Post Notices
+      </a></li>
+      <li><a onclick="showSection('timetable')" id="nav-timetable">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M8 14h2M14 14h2M8 18h2M14 18h2"/></svg>
+        Timetable
+      </a></li>
+      <li><a onclick="showSection('syllabus')" id="nav-syllabus">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+        Syllabus
+      </a></li>
+      <li><a onclick="showSection('log')" id="nav-log">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20V10M18 20V4M6 20v-4"/></svg>
+        Upload History
+      </a></li>
+    </ul>
+    <div class="sidebar-footer">
+      <button class="btn-logout" onclick="logout()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+        Logout
+      </button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="dash-main">
+    <div class="dash-header">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <button class="mobile-menu-btn" onclick="toggleSidebar()">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+        </button>
+        <h1 id="section-title">Overview</h1>
+      </div>
+      <span class="last-updated" id="last-updated-label"></span>
+    </div>
+
+    <div class="dash-body">
+
+      <!-- ─── OVERVIEW ─── -->
+      <div class="dash-section active" id="section-overview">
+        <div class="stats-row" id="stats-row">
+          <div class="stat-card">
+            <div class="sc-icon" style="background:#e6f4ee;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#3a8c5c" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+            </div>
+            <div class="sc-num" id="stat-att">0</div>
+            <div class="sc-label">Attendance Uploads</div>
+          </div>
+          <div class="stat-card">
+            <div class="sc-icon" style="background:#ede8fa;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#7c5cbf" stroke-width="1.8"><path d="M4 20V8l8-4 8 4v12"/><rect x="9" y="12" width="6" height="8"/></svg>
+            </div>
+            <div class="sc-num" id="stat-marks">0</div>
+            <div class="sc-label">Marks Uploads</div>
+          </div>
+          <div class="stat-card">
+            <div class="sc-icon" style="background:#fff4e0;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#d4960a" stroke-width="1.8"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/></svg>
+            </div>
+            <div class="sc-num" id="stat-notices">0</div>
+            <div class="sc-label">Notices Posted</div>
+          </div>
+          <div class="stat-card">
+            <div class="sc-icon" style="background:#e0eeff;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="1.8"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+            </div>
+            <div class="sc-num" id="stat-dept">CSIT</div>
+            <div class="sc-label">Department</div>
+          </div>
+        </div>
+
+        <!-- Quick actions -->
+        <div class="dash-card">
+          <div class="dash-card-head"><h3>Quick Actions</h3></div>
+          <div class="dash-card-body" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;">
+            <button onclick="showSection('attendance')" style="background:var(--green-dark);color:#fff;border:none;border-radius:12px;padding:18px;cursor:pointer;font-size:0.88rem;font-weight:600;display:flex;flex-direction:column;align-items:center;gap:8px;transition:opacity 0.2s;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 16V4M8 12l4-4 4 4"/><rect x="4" y="18" width="16" height="2" rx="1"/></svg>
+              Upload Attendance
+            </button>
+            <button onclick="showSection('marks')" style="background:#7c5cbf;color:#fff;border:none;border-radius:12px;padding:18px;cursor:pointer;font-size:0.88rem;font-weight:600;display:flex;flex-direction:column;align-items:center;gap:8px;transition:opacity 0.2s;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20V8l8-4 8 4v12"/><rect x="9" y="12" width="6" height="8"/></svg>
+              Upload Marks
+            </button>
+            <button onclick="showSection('notices')" style="background:#d4960a;color:#fff;border:none;border-radius:12px;padding:18px;cursor:pointer;font-size:0.88rem;font-weight:600;display:flex;flex-direction:column;align-items:center;gap:8px;transition:opacity 0.2s;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/></svg>
+              Post Notice
+            </button>
+            <button onclick="showSection('syllabus')" style="background:#3b82f6;color:#fff;border:none;border-radius:12px;padding:18px;cursor:pointer;font-size:0.88rem;font-weight:600;display:flex;flex-direction:column;align-items:center;gap:8px;transition:opacity 0.2s;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+              Upload Syllabus
+            </button>
+          </div>
+        </div>
+
+        <!-- Recent upload log -->
+        <div class="dash-card">
+          <div class="dash-card-head">
+            <h3>Recent Activity</h3>
+            <a onclick="showSection('log')" style="font-size:0.78rem;color:var(--green-accent);cursor:pointer;font-weight:600;">View all →</a>
+          </div>
+          <div id="overview-log-body">
+            <div class="skeleton skel-line wide" style="margin:20px;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── UPLOAD ATTENDANCE ─── -->
+      <div class="dash-section" id="section-attendance">
+        <div class="dash-card">
+          <div class="dash-card-head">
+            <h3>Upload Attendance Excel</h3>
+          </div>
+          <div class="dash-card-body">
+            <div class="sem-select-row">
+              <label>Semester:</label>
+              <select id="att-semester">
+                <option value="">Select Semester</option>
+                <option>1</option><option>2</option><option>3</option><option>4</option>
+                <option>5</option><option>6</option><option>7</option><option>8</option>
+              </select>
+            </div>
+
+            <div class="info-box" style="background:#e6f4ee;border-left:4px solid #3a8c5c;border-radius:6px;padding:11px 14px;margin-bottom:16px;font-size:0.82rem;color:#1a3c2e;">
+              <strong>Required Excel columns:</strong> &nbsp;
+              <code style="background:#c8e6d0;padding:1px 5px;border-radius:3px;font-size:0.8rem;">Enrollment No</code>&nbsp;
+              <code style="background:#c8e6d0;padding:1px 5px;border-radius:3px;font-size:0.8rem;">Subject Code</code>&nbsp;
+              <code style="background:#c8e6d0;padding:1px 5px;border-radius:3px;font-size:0.8rem;">Total Classes</code>&nbsp;
+              <code style="background:#c8e6d0;padding:1px 5px;border-radius:3px;font-size:0.8rem;">Attended</code>
+            </div>
+
+            <div class="upload-zone" id="att-zone" onclick="document.getElementById('att-file').click()">
+              <input type="file" id="att-file" accept=".xlsx,.xls" style="display:none" onchange="handleAttFile(this)"/>
+              <div class="uz-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 16V4M8 12l4-4 4 4"/><rect x="4" y="18" width="16" height="2" rx="1"/></svg></div>
+              <h3>Click to select Excel file</h3>
+              <p>or drag and drop here · .xlsx or .xls · max 5MB</p>
+              <div class="uz-filename" id="att-filename"></div>
+            </div>
+
+            <div style="margin-top:14px;text-align:right;">
+              <button class="btn-confirm" id="att-preview-btn" onclick="uploadAttendance()" disabled>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                Preview Data
+              </button>
+            </div>
+
+            <div class="preview-wrap" id="att-preview-wrap">
+              <div class="preview-banner">
+                <div>
+                  <span id="att-preview-msg">Ready to review</span>
+                  <div class="preview-meta" id="att-preview-meta"></div>
+                </div>
+                <div class="preview-actions">
+                  <button class="btn-cancel-upload" onclick="cancelUpload('att')">✕ Cancel</button>
+                  <button class="btn-confirm" id="att-confirm-btn" onclick="confirmAttendance()">
+                    ✓ Confirm &amp; Save
+                  </button>
+                </div>
+              </div>
+              <div class="preview-table-wrap">
+                <table class="preview-table" id="att-preview-table">
+                  <thead><tr>
+                    <th></th><th>Enrollment No</th><th>Student Name</th>
+                    <th>Subject Code</th><th>Total Classes</th><th>Attended</th><th>%</th>
+                  </tr></thead>
+                  <tbody id="att-preview-body"></tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="result-banner" id="att-result"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── UPLOAD MARKS ─── -->
+      <div class="dash-section" id="section-marks">
+        <div class="dash-card">
+          <div class="dash-card-head"><h3>Upload Marks Excel</h3></div>
+          <div class="dash-card-body">
+            <div class="sem-select-row">
+              <label>Semester:</label>
+              <select id="marks-semester">
+                <option value="">Select Semester</option>
+                <option>1</option><option>2</option><option>3</option><option>4</option>
+                <option>5</option><option>6</option><option>7</option><option>8</option>
+              </select>
+            </div>
+
+            <div class="info-box" style="background:#ede8fa;border-left:4px solid #7c5cbf;border-radius:6px;padding:11px 14px;margin-bottom:16px;font-size:0.82rem;color:#3d2e63;">
+              <strong>Required Excel columns:</strong> &nbsp;
+              <code style="background:#d8cef5;padding:1px 5px;border-radius:3px;font-size:0.8rem;">Enrollment No</code>&nbsp;
+              <code style="background:#d8cef5;padding:1px 5px;border-radius:3px;font-size:0.8rem;">Subject Code</code>&nbsp;
+              <code style="background:#d8cef5;padding:1px 5px;border-radius:3px;font-size:0.8rem;">Exam Type</code>&nbsp;
+              <code style="background:#d8cef5;padding:1px 5px;border-radius:3px;font-size:0.8rem;">Marks Obtained</code>&nbsp;
+              <code style="background:#d8cef5;padding:1px 5px;border-radius:3px;font-size:0.8rem;">Max Marks</code>
+              <br/><span style="font-size:0.77rem;margin-top:4px;display:block;">Exam Type values: <strong>MST1 · MST2 · Internal · Practical · Assignment</strong></span>
+            </div>
+
+            <div class="upload-zone" id="marks-zone" onclick="document.getElementById('marks-file').click()">
+              <input type="file" id="marks-file" accept=".xlsx,.xls" style="display:none" onchange="handleMarksFile(this)"/>
+              <div class="uz-icon" style="background:#ede8fa;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#7c5cbf" stroke-width="1.8"><path d="M4 20V8l8-4 8 4v12"/><rect x="9" y="12" width="6" height="8"/></svg>
+              </div>
+              <h3>Click to select Marks Excel file</h3>
+              <p>.xlsx or .xls · max 5MB</p>
+              <div class="uz-filename" id="marks-filename"></div>
+            </div>
+
+            <div style="margin-top:14px;text-align:right;">
+              <button class="btn-confirm" id="marks-preview-btn" onclick="uploadMarks()" disabled style="background:#7c5cbf;">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                Preview Data
+              </button>
+            </div>
+
+            <div class="preview-wrap" id="marks-preview-wrap">
+              <div class="preview-banner">
+                <div>
+                  <span id="marks-preview-msg">Ready to review</span>
+                  <div class="preview-meta" id="marks-preview-meta"></div>
+                </div>
+                <div class="preview-actions">
+                  <button class="btn-cancel-upload" onclick="cancelUpload('marks')">✕ Cancel</button>
+                  <button class="btn-confirm" id="marks-confirm-btn" onclick="confirmMarks()" style="background:#7c5cbf;">
+                    ✓ Confirm &amp; Save
+                  </button>
+                </div>
+              </div>
+              <div class="preview-table-wrap">
+                <table class="preview-table" id="marks-preview-table">
+                  <thead><tr>
+                    <th></th><th>Enrollment No</th><th>Student Name</th>
+                    <th>Subject Code</th><th>Exam Type</th><th>Marks</th><th>Max</th><th>%</th>
+                  </tr></thead>
+                  <tbody id="marks-preview-body"></tbody>
+                </table>
+              </div>
+            </div>
+            <div class="result-banner" id="marks-result"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── POST NOTICE ─── -->
+      <div class="dash-section" id="section-notices">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+
+          <!-- Post form -->
+          <div class="dash-card">
+            <div class="dash-card-head"><h3>Post New Notice</h3></div>
+            <div class="dash-card-body">
+              <div class="notice-form">
+                <div>
+                  <label>Title *</label>
+                  <input type="text" id="notice-title" placeholder="e.g. MST-2 Schedule Released" maxlength="200"/>
+                </div>
+                <div class="notice-form-row">
+                  <div>
+                    <label>Category *</label>
+                    <select id="notice-category">
+                      <option value="General">General</option>
+                      <option value="Exam">Exam</option>
+                      <option value="Assignment">Assignment</option>
+                      <option value="Holiday">Holiday</option>
+                      <option value="Event">Event</option>
+                      <option value="Urgent">Urgent</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label>Target Semester</label>
+                    <select id="notice-semester">
+                      <option value="">All Semesters</option>
+                      <option>1</option><option>2</option><option>3</option><option>4</option>
+                      <option>5</option><option>6</option><option>7</option><option>8</option>
+                    </select>
+                  </div>
+                </div>
+                <div>
+                  <label>Message Body *</label>
+                  <textarea id="notice-body" placeholder="Type your notice message here…"></textarea>
+                </div>
+                <div class="checkbox-row">
+                  <input type="checkbox" id="notice-pinned"/>
+                  <label for="notice-pinned" style="font-weight:400;">📌 Pin this notice (appears at top for students)</label>
+                </div>
+                <button class="btn-confirm" onclick="postNotice()">Post Notice →</button>
+              </div>
+              <div class="result-banner" id="notice-result"></div>
+            </div>
+          </div>
+
+          <!-- My notices list -->
+          <div class="dash-card">
+            <div class="dash-card-head">
+              <h3>My Posted Notices</h3>
+              <button onclick="loadMyNotices()" style="background:none;border:none;cursor:pointer;color:var(--green-accent);font-size:0.78rem;font-weight:600;">Refresh</button>
+            </div>
+            <div id="my-notices-body" style="max-height:420px;overflow-y:auto;">
+              <div class="skeleton skel-line wide" style="margin:20px;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── TIMETABLE ─── -->
+      <div class="dash-section" id="section-timetable">
+        <div class="dash-card" style="max-width:560px;">
+          <div class="dash-card-head"><h3>Upload Timetable (Image / PDF)</h3></div>
+          <div class="dash-card-body">
+            <p style="font-size:0.83rem;color:var(--text-muted);margin-bottom:18px;line-height:1.6;">
+              Upload a photo or PDF of the timetable. Students will see it directly — no manual entry needed.
+            </p>
+
+            <div class="sem-select-row" style="flex-wrap:wrap;gap:14px;">
+              <div style="display:flex;flex-direction:column;gap:5px;">
+                <label style="font-size:0.8rem;font-weight:600;">Semester</label>
+                <select id="tt-semester" style="border:1.5px solid var(--border);border-radius:9px;padding:8px 12px;font-size:0.85rem;font-family:inherit;min-width:120px;">
+                  <option value="">Select</option>
+                  <option>1</option><option>2</option><option>3</option><option>4</option>
+                  <option>5</option><option>6</option><option>7</option><option>8</option>
+                </select>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:5px;">
+                <label style="font-size:0.8rem;font-weight:600;">Type</label>
+                <select id="tt-type" style="border:1.5px solid var(--border);border-radius:9px;padding:8px 12px;font-size:0.85rem;font-family:inherit;min-width:130px;">
+                  <option value="Regular">Regular</option>
+                  <option value="MST">MST</option>
+                  <option value="Practical">Practical</option>
+                  <option value="Special">Special</option>
+                </select>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:5px;">
+                <label style="font-size:0.8rem;font-weight:600;">Effective From</label>
+                <input type="date" id="tt-date" style="border:1.5px solid var(--border);border-radius:9px;padding:8px 12px;font-size:0.85rem;font-family:inherit;"/>
+              </div>
+            </div>
+
+            <div style="margin-top:18px;">
+              <label style="font-size:0.81rem;font-weight:600;display:block;margin-bottom:8px;">Timetable File (Image or PDF — max 20MB)</label>
+              <div class="upload-zone" style="padding:32px;" onclick="document.getElementById('tt-image-file').click()">
+                <input type="file" id="tt-image-file" accept="image/*,.pdf" style="display:none" onchange="handleTimetableFile(this)"/>
+                <div class="uz-icon" style="background:#e0eeff;">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+                </div>
+                <h3>Click to select file</h3>
+                <p>JPG, PNG, PDF supported · max 20MB</p>
+                <div class="uz-filename" id="tt-filename"></div>
+              </div>
+            </div>
+
+            <div style="margin-top:18px;text-align:right;">
+              <button class="btn-confirm" id="tt-upload-btn" onclick="uploadTimetableImage()" disabled style="background:#3b82f6;">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 16V4M8 12l4-4 4 4"/><rect x="4" y="18" width="16" height="2" rx="1"/></svg>
+                Upload Timetable →
+              </button>
+            </div>
+            <div class="result-banner" id="tt-result"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── SYLLABUS ─── -->
+      <div class="dash-section" id="section-syllabus">
+        <div class="dash-card" style="max-width:560px;">
+          <div class="dash-card-head"><h3>Upload Syllabus / Study Material</h3></div>
+          <div class="dash-card-body">
+            <div class="syllabus-form">
+
+              <div>
+                <label>Semester</label>
+                <select id="syl-semester" onchange="loadSylSubjects()">
+                  <option value="">Select Semester</option>
+                  <option>1</option><option>2</option><option>3</option><option>4</option>
+                  <option>5</option><option>6</option><option>7</option><option>8</option>
+                </select>
+              </div>
+
+              <div>
+                <label>Subject</label>
+                <select id="syl-subject" onchange="onSubjectChange()">
+                  <option value="">Select semester first</option>
+                </select>
+              </div>
+
+              <!-- Add New Subject form — shown when "Add New Subject" is selected -->
+              <div id="new-subject-row" style="display:none; background:#f6f9f7; border:1px solid #bfe0cd; border-radius:12px; padding:16px;">
+                <div style="font-size:0.84rem; font-weight:700; color:var(--green-dark); margin-bottom:12px;">➕ Add New Subject</div>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px;">
+                  <div>
+                    <label style="font-size:0.79rem; font-weight:600; display:block; margin-bottom:4px;">Subject Name *</label>
+                    <input type="text" id="new-subject-name" placeholder="e.g. DBMS" style="width:100%;border:1.5px solid var(--border);border-radius:8px;padding:9px 12px;font-size:0.85rem;font-family:inherit;"/>
+                  </div>
+                  <div>
+                    <label style="font-size:0.79rem; font-weight:600; display:block; margin-bottom:4px;">Short Code *</label>
+                    <input type="text" id="new-subject-code" placeholder="e.g. DBMS" style="width:100%;border:1.5px solid var(--border);border-radius:8px;padding:9px 12px;font-size:0.85rem;font-family:inherit;" oninput="this.value=this.value.toUpperCase()"/>
+                  </div>
+                </div>
+                <div style="margin-bottom:12px;">
+                  <label style="font-size:0.79rem; font-weight:600; display:block; margin-bottom:4px;">Credits</label>
+                  <select id="new-subject-credits" style="width:100%;border:1.5px solid var(--border);border-radius:8px;padding:9px 12px;font-size:0.85rem;font-family:inherit;">
+                    <option value="2">2 Credits</option>
+                    <option value="3">3 Credits</option>
+                    <option value="4" selected>4 Credits</option>
+                    <option value="5">5 Credits</option>
+                    <option value="6">6 Credits</option>
+                  </select>
+                </div>
+                <button class="btn-confirm" onclick="addNewSubject()" style="background:#3a8c5c; font-size:0.82rem; padding:9px 18px;">
+                  Save Subject →
+                </button>
+              </div>
+
+              <div>
+                <label>Document Title</label>
+                <input type="text" id="syl-title" placeholder="e.g. Unit 1 – Introduction to DBMS"/>
+              </div>
+
+              <div>
+                <label>File (PDF, DOC, PPT – max 20MB)</label>
+                <div class="upload-zone" style="padding:24px;" onclick="document.getElementById('syl-file').click()">
+                  <input type="file" id="syl-file" accept=".pdf,.doc,.docx,.ppt,.pptx" style="display:none" onchange="handleSylFile(this)"/>
+                  <div class="uz-icon" style="background:#fdeaea;width:42px;height:42px;margin-bottom:8px;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="1.8"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                  </div>
+                  <p style="font-size:0.8rem;color:var(--text-muted);">Click to select file</p>
+                  <div class="uz-filename" id="syl-filename"></div>
+                </div>
+              </div>
+
+              <button class="btn-confirm" onclick="uploadSyllabus()" style="background:#3b82f6;">Upload Document →</button>
+            </div>
+            <div class="result-banner" id="syl-result"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── UPLOAD LOG ─── -->
+      <div class="dash-section" id="section-log">
+        <div class="dash-card">
+          <div class="dash-card-head">
+            <h3>Upload History</h3>
+            <button onclick="loadLog()" style="background:none;border:none;cursor:pointer;color:var(--green-accent);font-size:0.78rem;font-weight:600;">Refresh</button>
+          </div>
+          <div id="log-body">
+            <div class="skeleton skel-line wide" style="margin:20px;"></div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /dash-body -->
+  </main>
+</div>
+
+<script src="config.js"></script>
+<script src="faculty-dashboard.js"></script>
+</body>
+</html>
