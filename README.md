@@ -1,5 +1,4 @@
 # Samayak — Authentication & User Management Module
-
 This module adds a complete, working login/signup system to Samayak: Your CampusMitra, matching the visual identity of the existing landing page.
 
 ## What's Included
@@ -16,6 +15,9 @@ This module adds a complete, working login/signup system to Samayak: Your Campus
 ✅ Rate limiting on login & OTP requests (brute-force protection)
 ✅ Activity logging (signup, login, login_failed, password_reset)
 ✅ Real MySQL database with proper schema
+### ----------------------------------------        SAMAYAK- Your Campus Mantri           -----------------------------------------------
+<br>
+IN SHORT:- This a site where Faculty can directly upload Students academic details including Attendance, MST Marks, Syllabus, Timetables , Important academic Notices, Assignment details etc, which students can access easily, anywhere, all in same platform.
 
 ## Quick Start
 
